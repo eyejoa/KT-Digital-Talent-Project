@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KT 디지털 인재 장학생 사회 문제 해결 프로젝트 보고서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. 디자인 시스템 정의 */
+        :root {
+            --kt-brand: #00b0d8;
+            --indigo: #4338ca;
+            --indigo-light: #eef2ff;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --bg-light: #f8fafc;
+            --surface: #ffffff;
+            --border: rgba(67, 56, 202, 0.1);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #e2e8f0;
+            display: grid;
+            gap: 40px;
+            padding: 40px 0;
+            place-items: center;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 2. 슬라이드 컨테이너 */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--surface);
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            scroll-snap-align: start;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--indigo-light) 0%, transparent 70%);
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .slide-container > * { position: relative; z-index: 1; }
+
+        .slide-title {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 40px;
+            border-left: 8px solid var(--indigo);
+            padding-left: 20px;
+            line-height: 1.2;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 레이아웃 컴포넌트 */
+        .merged-title-layout { 
+            background: linear-gradient(135deg, var(--indigo) 0%, #1e1b4b 100%); 
+            color: white; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            height: 100%;
+            margin: -60px; 
+            padding: 60px;
+        }
+        .merged-title-layout .eyebrow { 
+            font-family: 'DM Sans'; 
+            font-weight: 700; 
+            color: rgba(255,255,255,0.7); 
+            letter-spacing: 5px; 
+            margin-bottom: 30px; 
+            text-transform: uppercase;
+            animation: fadeUp 0.8s ease-out both;
+        }
+        .merged-title-layout h1 { 
+            font-size: 68px; color: white; margin-bottom: 20px; line-height: 1.2;
+            animation: fadeUp 0.8s ease-out 0.2s both;
+        }
+        .merged-title-layout hr { 
+            width: 100px; border: 3px solid #fff; margin: 40px auto; border-radius: 3px;
+            animation: fadeUp 0.8s ease-out 0.4s both;
+        }
+        .merged-title-layout p { 
+            font-size: 26px; color: rgba(255,255,255,0.9); font-weight: 300;
+            animation: fadeUp 0.8s ease-out 0.6s both;
+        }
+
+        .highlight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .highlight-card {
+            background: var(--bg-light);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border-bottom: 4px solid var(--indigo);
+            animation: fadeUp 0.8s ease-out both;
+            transition: transform 0.3s ease;
+        }
+        .highlight-card:hover { transform: translateY(-10px); }
+        .highlight-card i { font-size: 48px; color: var(--indigo); margin-bottom: 20px; display: block; }
+        .highlight-label { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 10px; }
+        .highlight-desc { font-size: 16px; color: var(--text-sub); line-height: 1.5; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 16px; animation: fadeUp 1s ease-out both; }
+        th { background: var(--indigo); color: white; padding: 18px; text-align: left; }
+        td { padding: 14px 18px; border-bottom: 1px solid var(--border); text-align: left; }
+        tr:nth-child(even) { background: var(--bg-light); }
+        .badge { 
+            display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700;
+            background: var(--indigo-light); color: var(--indigo); margin-right: 5px;
+        }
+
+        .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .step-box {
+            background: var(--bg-light);
+            padding: 35px;
+            border-radius: var(--radius-md);
+            position: relative;
+            border-left: 5px solid var(--indigo);
+            animation: fadeUp 1s ease-out both;
+        }
+        .step-tag { 
+            position: absolute; top: -15px; left: 20px; background: var(--indigo); 
+            color: white; padding: 4px 15px; border-radius: 15px; font-size: 14px; font-weight: 700;
+        }
+        .step-title { font-size: 22px; font-weight: 700; margin-bottom: 15px; color: var(--text-main); }
+        .step-content { color: var(--text-sub); font-size: 16px; line-height: 1.6; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title Slide -->
+    <div class="slide-container" id="slide1">
+        <div class="content-area merged-title-layout">
+            <div class="eyebrow">KT AICT Talent Project</div>
+            <h1>KT 디지털 인재 장학생<br>사회 문제 해결 프로젝트</h1>
+            <hr>
+            <p>AICT 기반 맞춤형 해결책 도출 및 지속가능한 상생협력 모델 구축</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Project Purpose -->
+    <div class="slide-container" id="slide2">
+        <h2 class="slide-title">프로젝트 추진 목적</h2>
+        <div class="content-area">
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <i class="fa-solid fa-brain"></i>
+                    <div class="highlight-label">사회 기여 경험 제공</div>
+                    <div class="highlight-desc">AICT 기반의 맞춤형 사회문제 해결책을 도출하여 실질적인 사회 공헌 경험을 체험</div>
+                </div>
+                <div class="highlight-card">
+                    <i class="fa-solid fa-handshake"></i>
+                    <div class="highlight-label">상생협력 모델 구축</div>
+                    <div class="highlight-desc">지자체 및 기관 연계를 통해 KT-지역사회-대학생 간 지속가능한 협력 체계 구축</div>
+                </div>
+                <div class="highlight-card">
+                    <i class="fa-solid fa-rocket"></i>
+                    <div class="highlight-label">실전형 멘토링</div>
+                    <div class="highlight-desc">KT 블루보드/KT그룹사 협업을 통한 회사의 일하는 방식 체험 및 취업 관련 실질적 멘토링 기회 제공</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: 2025 Case Studies -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">'25년 주요 지역별 추진 사례</h2>
+        <div class="content-area">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">지역</th>
+                        <th style="width: 250px;">협업 지자체/기관</th>
+                        <th>주요 추진 주제 (AI 및 디지털 기술 활용)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge">서울</span></td>
+                        <td>종로구청 / 성동구청</td>
+                        <td>통합 집회 알림 및 멧돼지 출몰 알림 서비스 / 어린이 보행안전 로블록스 업데이트</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">대구/경북</span></td>
+                        <td>창의도시재생지원센터</td>
+                        <td>동성로 예비 창업자를 위한 업종별 폐업 정보 제공 챗봇 서비스</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">부산</span></td>
+                        <td>경제진흥원</td>
+                        <td>청년 개인별 맞춤형 창업 정보 큐레이션 챗봇 구축</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">충청</span></td>
+                        <td>천안시 도시재생센터</td>
+                        <td>노후주택 재생 사업을 위한 AI 기반 빈집 현황 트래킹 플랫폼</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">전라</span></td>
+                        <td>전주시 정보문화진흥원</td>
+                        <td>개방화장실 정보 통합 및 장마철 물 고임 도로 사고 예방 플랫폼</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge">강원</span></td>
+                        <td>평창군 도시재생센터</td>
+                        <td>지역관광 활성화를 위한 데이터 기반 관광 정보 제공 플랫폼</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 4: Future Roadmap -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">향후 추진 계획 및 고도화</h2>
+        <div class="content-area">
+            <div class="process-steps">
+                <div class="step-box">
+                    <div class="step-tag">Step 01</div>
+                    <div class="step-title">과제 도출</div>
+                    <div class="step-content">
+                        지자체/기관 및 KT그룹사와 연계하여 지역 맞춤형 해결 과제 발굴 및 선정
+                    </div>
+                </div>
+                <div class="step-box">
+                    <div class="step-tag">Step 02</div>
+                    <div class="step-title">AI 결과물 도출</div>
+                    <div class="step-content">
+                        장학생 주도의 AI 및 디지털 기술을 활용한 실질적인 서비스/플랫폼 결과물 개발
+                    </div>
+                </div>
+                <div class="step-box" style="border-left-color: var(--emerald);">
+                    <div class="step-tag" style="background: var(--emerald);">Step 03</div>
+                    <div class="step-title">성과 공유 및 고도화</div>
+                    <div class="step-content">
+                        8월 중 성과 공유회 개최를 통한 결과 확산 및 지속가능한 프로젝트로의 고도화 추진
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 50px; padding: 25px; background: var(--indigo-light); border-radius: var(--radius-md); animation: fadeUp 1.2s ease-out both;">
+                <p style="color: var(--indigo); font-weight: 700; font-size: 18px;">
+                    <i class="fa-solid fa-circle-check"></i> 프로젝트 고도화 방향:
+                </p>
+                <p style="color: var(--text-sub); margin-top: 10px; line-height: 1.6;">
+                    단순 참여를 넘어 KT 블루보드/ KT그룹사 멘토링과 연계하여 결과물의 완성도를 높이고, 지역사회의 실질적인 문제 해결이 가능하도록 지자체 및 기관의 서비스 반영을 목표로 추진합니다.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
